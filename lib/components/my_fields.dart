@@ -47,17 +47,6 @@ class _MyPasswordState extends State<MyPassword> {
                     style: TextStyle(fontSize: 30, color: Colors.lightGreen),
                   );
                 })
-            // ElevatedButton.icon(
-            //   style: TextButton.styleFrom(
-            //     padding: EdgeInsets.symmetric(
-            //       horizontal: defaultPadding * 1.5,
-            //       vertical: defaultPadding,
-            //     ),
-            //   ),
-            //   onPressed: () {},
-            //   icon: Icon(Icons.add),
-            //   label: Text("Add New"),
-            // ),
           ],
         ),
         SizedBox(height: defaultPadding),

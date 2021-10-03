@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:save_password/components/my_fields.dart';
 import 'package:save_password/components/storage_details.dart';
 import 'package:save_password/models/recent_added.dart';
-import 'package:save_password/ui/ui_RecentAdd.dart';
 
 import '../constants.dart';
 import '../responsive.dart';

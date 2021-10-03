@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:save_password/components/Search.dart';
-import 'package:save_password/components/SearchDelegate.dart';
-import 'package:save_password/components/Searching.dart';
+import 'package:save_password/components/Search_From_Json_Network.dart';
 import 'package:save_password/constants.dart';
 import 'package:save_password/ui/side_menu.dart';
 import 'package:save_password/ui/ui_Password.dart';
@@ -17,7 +15,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  static List<Widget> pages = <Widget>[Dashboard(), UiPassword(), Search()];
+  static List<Widget> pages = <Widget>[
+    Dashboard(),
+    UiPassword(),
+    SearchPassword()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {

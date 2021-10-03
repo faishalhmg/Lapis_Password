@@ -20,7 +20,7 @@ class UiPasswordList extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = passwordItem[index];
           return Dismissible(
-            key: Key(item.id),
+            key: Key(item.name),
             direction: DismissDirection.endToStart,
             background: Container(
               color: Colors.red,
@@ -41,7 +41,7 @@ class UiPasswordList extends StatelessWidget {
             },
             child: InkWell(
               child: PasswordTile(
-                key: Key(item.id),
+                key: Key(item.name),
                 item: item,
                 // onComplete: (change) {
                 //   manager.completeItem(index, change);

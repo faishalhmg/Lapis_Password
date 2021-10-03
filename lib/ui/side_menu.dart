@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:save_password/models/DarkThemeProvider.dart';
 import 'package:save_password/models/user.dart';
+import 'package:save_password/services/App_description.dart';
+import 'package:save_password/services/Password_Generator.dart';
+import 'package:save_password/ui/ui_Password.dart';
+import 'package:save_password/ui/ui_dash_passw.dart';
 
 class SideMenu extends StatelessWidget {
   final User user;
@@ -24,19 +29,39 @@ class SideMenu extends StatelessWidget {
           )),
           DrawerListTile(
             title: "Dashboard",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Dashboard()),
+              );
+            },
           ),
           DrawerListTile(
             title: "Tambah Data Password",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UiPassword()),
+              );
+            },
           ),
           DrawerListTile(
-            title: "History",
-            press: () {},
+            title: "Password Generator",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PasswordGenerator()),
+              );
+            },
           ),
           DrawerListTile(
             title: "APP Description",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AppDesc()),
+              );
+            },
           ),
           Checkbox(
               value: themeChange.darkTheme,

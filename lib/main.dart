@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
@@ -18,7 +19,10 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(PasswordItem.boxName);
   Hive.registerAdapter(PasswordItemAdapter());
-
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const SavePassword());
 }
 

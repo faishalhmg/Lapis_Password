@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:http/http.dart';
 import '../data/password_item.dart';
 
 class PasswordManager extends ChangeNotifier {
@@ -11,6 +10,7 @@ class PasswordManager extends ChangeNotifier {
   PasswordItem _selectedPassword = PasswordItem();
   List<PasswordItem> get passwordItems => List.unmodifiable(_passwordItems);
 
+  // ignore: non_constant_identifier_names
   PasswordItem get SelectedPassword => _selectedPassword;
 
   bool get isCreatingNewItem => _createNewItem;
@@ -49,6 +49,7 @@ class PasswordManager extends ChangeNotifier {
   List get password => _passwordList;
 
   void getPassword() async {
+    // ignore: await_only_futures
     passwordList = await box.values.toList();
     notifyListeners();
   }
@@ -59,9 +60,3 @@ class PasswordManager extends ChangeNotifier {
     return passwordList;
   }
 }
-//   void LockItem(int index, bool change) {
-//     final item = _passwordItems[index];
-//     _passwordItems[index] = item.copyWith(isLock: change);
-//     notifyListeners();
-//   }
-// }

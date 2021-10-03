@@ -1,24 +1,29 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:save_password/data/password_item.dart';
 
-final String url =
-    "https://run.mocky.io/v3/abd3b670-5afc-4f2c-b28a-089a1e894969";
+class PasswordApi {
+  static Future<List<PasswordItem>> getPassword(String query) async {
+    final url = Uri.parse(
+        'https://gist.githubusercontent.com/faishalhmg/362f5a2b6384b2afbe73d45e0f886272/raw/02d4250e78665e0f6a60626f5e801ec9526ff420/password.json');
+    final response = await http.get(url);
 
-List<PasswordItem> parseUser(String responseBody) {
-  var list = json.decode(responseBody) as List<dynamic>;
-  var passwords = list.map((e) => PasswordItem.fromJson(e)).toList();
-  return passwords;
-}
+    if (response.statusCode == 200) {
+      final List password = json.decode(response.body);
 
-Future<List<PasswordItem>> fetchUsers() async {
-  final http.Response response = await http.get(Uri.parse(url));
+      return password
+          .map((json) => PasswordItem.fromJson(json))
+          .where((password) {
+        final titleLower = password.name.toLowerCase();
+        final authorLower = password.desc.toLowerCase();
+        final searchLower = query.toLowerCase();
 
-  if (response.statusCode == 200) {
-    return compute(parseUser, response.body);
-  } else {
-    throw Exception(response.statusCode);
+        return titleLower.contains(searchLower) ||
+            authorLower.contains(searchLower);
+      }).toList();
+    } else {
+      throw Exception();
+    }
   }
 }

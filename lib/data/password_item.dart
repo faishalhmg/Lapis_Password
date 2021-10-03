@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/painting.dart';
 import 'package:hive/hive.dart';
 part 'password_item.g.dart';
@@ -22,6 +20,7 @@ class PasswordItem extends HiveObject {
   @HiveField(6)
   DateTime date;
   Color color;
+  // ignore: non_constant_identifier_names
   bool Lock;
 
   PasswordItem({
@@ -33,6 +32,7 @@ class PasswordItem extends HiveObject {
     this.desc,
     this.color,
     this.date,
+    // ignore: non_constant_identifier_names
     this.Lock = false,
   });
 
@@ -84,10 +84,25 @@ class PasswordItem extends HiveObject {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory PasswordItem.fromJson(String source) =>
-      PasswordItem.fromMap(json.decode(source));
+  factory PasswordItem.fromJson(Map<String, dynamic> json) => PasswordItem(
+        id: json['id'],
+        name: json['name'],
+        username: json['username'],
+        password: json['password'],
+        importantCode: json['importantCode'],
+        desc: json['desc'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'username': username,
+        'password': password,
+        'importanceCode': importantCode,
+        'desc': desc,
+      };
 
   @override
   String toString() {
