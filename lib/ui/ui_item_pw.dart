@@ -167,6 +167,14 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
           controller: _passwordController,
           cursorColor: Colors.greenAccent,
           decoration: InputDecoration(
+            suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
+                icon:
+                    Icon(_isObscure ? Icons.visibility : Icons.visibility_off)),
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
