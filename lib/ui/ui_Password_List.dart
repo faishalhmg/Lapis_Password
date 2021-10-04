@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+
 import '../components/password_tile.dart';
 import '../models/models.dart';
 import 'ui_item_pw.dart';
 
-class UiPasswordList extends StatelessWidget {
+class UiPasswordList extends StatefulWidget {
   final PasswordManager manager;
 
   const UiPasswordList({
@@ -12,18 +15,38 @@ class UiPasswordList extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _UiPasswordListState createState() => _UiPasswordListState();
+}
+
+class _UiPasswordListState extends State<UiPasswordList> {
+  void getPassword() async {
+    setState(() {
+      final box = Hive.box(PasswordItem.boxName);
+
+      box.values.toList();
+    });
+  }
+
+  @override
+  void initState() {
+    getPassword();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final passwordItem = manager.passwordItems;
+    var box = Hive.box(PasswordItem.boxName);
 
     return ListView.separated(
-        itemCount: passwordItem.length,
+        itemCount: box.length,
         itemBuilder: (context, index) {
-          final item = passwordItem[index];
+          final item = box.values.toList()[index];
+
           return Dismissible(
             key: Key(item.name),
             direction: DismissDirection.endToStart,
             background: Container(
-              color: Colors.red,
+              color: Colors.greenAccent,
               alignment: Alignment.centerRight,
               child: const Icon(
                 Icons.delete_forever,
@@ -31,12 +54,34 @@ class UiPasswordList extends StatelessWidget {
                 size: 50.0,
               ),
             ),
-            onDismissed: (direction) {
-              manager.deleteItem(index);
+            onDismissed: (direction) async {
+              widget.manager.deleteItem(index);
+              box.deleteAt(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('${item.name} dihapus'),
                 ),
+              );
+            },
+            confirmDismiss: (DismissDirection direction) async {
+              return await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("Delete Confirmation"),
+                    content: const Text(
+                        "Are you sure you want to delete this item?"),
+                    actions: <Widget>[
+                      FlatButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: const Text("Delete")),
+                      FlatButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: const Text("Cancel"),
+                      ),
+                    ],
+                  );
+                },
               );
             },
             child: InkWell(
@@ -54,7 +99,8 @@ class UiPasswordList extends StatelessWidget {
                     builder: (context) => PasswordItemScreen(
                       originalItem: item,
                       onUpdate: (item) {
-                        manager.updateItem(item, index);
+                        // manager.updateItem(item, index);
+                        box.putAt(index, item);
                         Navigator.pop(context);
                       },
                     ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'ui_empty_Password.dart';
 import 'ui_Password_List.dart';
@@ -33,9 +35,10 @@ class UiPassword extends StatelessWidget {
   }
 
   Widget buildPasswordScreen() {
+    var box = Hive.box(PasswordItem.boxName);
     return Consumer<PasswordManager>(
       builder: (context, manager, child) {
-        if (manager.passwordItems.isNotEmpty) {
+        if (box.values.isNotEmpty) {
           return UiPasswordList(manager: manager);
         } else {
           return const EmptyPassword();

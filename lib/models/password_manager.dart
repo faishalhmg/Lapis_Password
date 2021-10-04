@@ -49,8 +49,7 @@ class PasswordManager extends ChangeNotifier {
   List get password => _passwordList;
 
   void getPassword() async {
-    // ignore: await_only_futures
-    passwordList = await box.values.toList();
+    passwordList = box.values.toList();
     notifyListeners();
   }
 

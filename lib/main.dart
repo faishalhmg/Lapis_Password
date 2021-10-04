@@ -14,11 +14,11 @@ import 'ui/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
-  await Hive.initFlutter();
+  Hive.registerAdapter<PasswordItem>(PasswordItemAdapter());
   await Hive.openBox(PasswordItem.boxName);
-  Hive.registerAdapter(PasswordItemAdapter());
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

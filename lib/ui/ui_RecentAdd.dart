@@ -11,10 +11,10 @@ class RecentAdd extends StatefulWidget {
 
 class RecentAddState extends State<RecentAdd> {
   List<PasswordItem> listPassword = [];
-
   void getPassword() async {
-    final box = Hive.box(PasswordItem.boxName);
     setState(() {
+      final box = Hive.box(PasswordItem.boxName);
+
       listPassword = box.values.toList();
     });
   }

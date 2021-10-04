@@ -7,11 +7,8 @@ part of 'password_item.dart';
 // **************************************************************************
 
 class PasswordItemAdapter extends TypeAdapter<PasswordItem> {
-//Missing
-
   @override
   final int typeId = 0;
-//Missing
 
   @override
   PasswordItem read(BinaryReader reader) {

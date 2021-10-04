@@ -19,6 +19,7 @@ class PasswordItem extends HiveObject {
   String desc;
   @HiveField(6)
   DateTime date;
+
   Color color;
   // ignore: non_constant_identifier_names
   bool Lock;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import '../models/models.dart';
@@ -40,7 +38,6 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
   String _importantCode = '';
   String _desc = '';
   DateTime _dueDate = DateTime.now();
-  Color _currentColor = Colors.green;
 
   @override
   void initState() {
@@ -55,7 +52,6 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
       _importantCode = widget.originalItem.importantCode;
       _descController.text = widget.originalItem.desc;
       _desc = widget.originalItem.desc;
-      _currentColor = widget.originalItem.color;
       // _dueDate = date;
     }
     _nameController.addListener(() {
@@ -73,7 +69,6 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var box = Hive.box(PasswordItem.boxName);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -87,7 +82,6 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
                 ..password = _passwordController.text
                 ..importantCode = _importantController.text
                 ..desc = _descController.text
-                ..color = _currentColor
                 ..date = DateTime.now();
               if (widget.isUpdating) {
                 widget.onUpdate(passwordItems);
@@ -115,8 +109,7 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
             // buildDateField(context),
             // buildTimeField(context),
             const SizedBox(height: 10.0),
-            buildColorPicker(context),
-            const SizedBox(height: 10.0),
+
             // buildQuantityField(),
             const SizedBox(height: 16.0),
             PasswordTile(
@@ -126,7 +119,6 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
                   password: _password,
                   importantCode: _importantCode,
                   desc: _desc,
-                  color: _currentColor,
                   date: DateTime.now()),
             ),
           ],
@@ -145,16 +137,16 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
         ),
         TextField(
           controller: _nameController,
-          cursorColor: _currentColor,
+          cursorColor: Colors.greenAccent,
           decoration: InputDecoration(
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
             border: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
           ),
         ),
@@ -173,16 +165,16 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
         TextField(
           obscureText: _isObscure,
           controller: _passwordController,
-          cursorColor: _currentColor,
+          cursorColor: Colors.greenAccent,
           decoration: InputDecoration(
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
             border: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
           ),
         ),
@@ -201,7 +193,7 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
         TextField(
           obscureText: _isObscure2,
           controller: _importantController,
-          cursorColor: _currentColor,
+          cursorColor: Colors.greenAccent,
           decoration: InputDecoration(
             suffixIcon: IconButton(
                 onPressed: () {
@@ -215,10 +207,10 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
               borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
             border: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
           ),
         ),
@@ -236,16 +228,16 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
         ),
         TextField(
           controller: _usernameController,
-          cursorColor: _currentColor,
+          cursorColor: Colors.greenAccent,
           decoration: InputDecoration(
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
             border: UnderlineInputBorder(
-              borderSide: BorderSide(color: _currentColor),
+              borderSide: BorderSide(color: Colors.greenAccent),
             ),
           ),
         ),
@@ -261,70 +253,21 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
       ),
       TextField(
         controller: _descController,
-        cursorColor: _currentColor,
+        cursorColor: Colors.greenAccent,
         decoration: InputDecoration(
           enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: _currentColor),
+            borderSide: BorderSide(color: Colors.greenAccent),
           ),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(color: _currentColor),
+            borderSide: BorderSide(color: Colors.greenAccent),
           ),
         ),
       ),
     ]);
   }
-  // Widget buildImportanceField() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         'Importance',
-  //         style: GoogleFonts.lato(fontSize: 28.0),
-  //       ),
-  //       Wrap(
-  //         spacing: 10.0,
-  //         children: [
-  //           ChoiceChip(
-  //             selectedColor: Colors.black,
-  //             // selected: _importance == Importance.low,
-  //             label: const Text(
-  //               'low',
-  //               style: TextStyle(color: Colors.white),
-  //             ),
-  //             onSelected: (selected) {
-  //               // setState(() => _importance = Importance.low);
-  //             },
-  //           ),
-  //           ChoiceChip(
-  //             selectedColor: Colors.black,
-  //             // selected: _importance == Importance.medium,
-  //             label: const Text(
-  //               'medium',
-  //               style: TextStyle(color: Colors.white),
-  //             ),
-  //             onSelected: (selected) {
-  //               // setState(() => _importance = Importance.medium);
-  //             },
-  //           ),
-  //           ChoiceChip(
-  //             selectedColor: Colors.black,
-  //             // selected: _importance == Importance.high,
-  //             label: const Text(
-  //               'high',
-  //               style: TextStyle(color: Colors.white),
-  //             ),
-  //             onSelected: (selected) {
-  //               // setState(() => _importance = Importance.high);
-  //             },
-  //           ),
-  //         ],
-  //       )
-  //     ],
-  //   );
-  // }
 
   Widget buildDateField(BuildContext context) {
     return Column(
@@ -363,113 +306,4 @@ class _PasswordItemScreenState extends State<PasswordItemScreen> {
       ],
     );
   }
-
-  // Widget buildTimeField(BuildContext context) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           Text(
-  //             'Time of Day',
-  //             style: GoogleFonts.lato(fontSize: 28.0),
-  //           ),
-  //           TextButton(
-  //             child: const Text('Select'),
-  //             onPressed: () async {
-  //               final timeOfDay = await showTimePicker(
-  //                 initialTime: TimeOfDay.now(),
-  //                 context: context,
-  //               );
-  //               setState(() {
-  //                 // if (timeOfDay != null) {
-  //                 //   _timeOfDay = timeOfDay;
-  //                 // }
-  //               });
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //       // if (_timeOfDay != null) Text('${_timeOfDay.format(context)}'),
-  //     ],
-  //   );
-  // }
-
-  Widget buildColorPicker(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(height: 50, width: 10, color: _currentColor),
-            const SizedBox(width: 8),
-            Text('Color', style: GoogleFonts.lato(fontSize: 28)),
-          ],
-        ),
-        TextButton(
-          child: const Text('Select'),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  content: BlockPicker(
-                      pickerColor: Colors.white,
-                      onColorChanged: (color) {
-                        setState(() => _currentColor = color);
-                      }),
-                  actions: [
-                    TextButton(
-                      child: const Text('Save'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  // Widget buildQuantityField() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Row(
-  //         crossAxisAlignment: CrossAxisAlignment.baseline,
-  //         textBaseline: TextBaseline.alphabetic,
-  //         children: [
-  //           Text(
-  //             'Quantity',
-  //             style: GoogleFonts.lato(fontSize: 28.0),
-  //           ),
-  //           const SizedBox(width: 16.0),
-  //           Text(
-  //             _currentSliderValue.toInt().toString(),
-  //             style: GoogleFonts.lato(fontSize: 18.0),
-  //           ),
-  //         ],
-  //       ),
-  //       Slider(
-  //         inactiveColor: _currentColor.withOpacity(0.5),
-  //         activeColor: _currentColor,
-  //         value: _currentSliderValue.toDouble(),
-  //         min: 0.0,
-  //         max: 100.0,
-  //         divisions: 100,
-  //         label: _currentSliderValue.toInt().toString(),
-  //         onChanged: (double value) {
-  //           setState(() {
-  //             _currentSliderValue = value.toInt();
-  //           });
-  //         },
-  //       ),
-  //     ],
-  //   );
-  // }
 }

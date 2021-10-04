@@ -26,7 +26,7 @@ class PasswordTile extends StatelessWidget {
             children: [
               Container(
                 width: 5.0,
-                color: item.color,
+                color: Colors.greenAccent,
               ),
               const SizedBox(width: 16.0),
               Column(
@@ -41,8 +41,6 @@ class PasswordTile extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4.0),
-                  // const SizedBox(height: 4.0),
-                  // buildImportance(),
                 ],
               ),
             ],
@@ -51,31 +49,4 @@ class PasswordTile extends StatelessWidget {
       ),
     );
   }
-
-  // Widget buildImportance() {
-  //   if (item.importance == Importance.low) {
-  //     return Text(
-  //       'Low',
-  //       style: GoogleFonts.lato(decoration: textDecoration),
-  //     );
-  //   } else if (item.importance == Importance.medium) {
-  //     return Text(
-  //       'Medium',
-  //       style: GoogleFonts.lato(
-  //           fontWeight: FontWeight.w800, decoration: textDecoration),
-  //     );
-  //   } else if (item.importance == Importance.high) {
-  //     return Text(
-  //       'High',
-  //       style: GoogleFonts.lato(
-  //         color: Colors.red,
-  //         fontWeight: FontWeight.w900,
-  //         decoration: textDecoration,
-  //       ),
-  //     );
-  //   } else {
-  //     throw Exception('This importance type does not exist');
-  //   }
-  // }
-
 }
